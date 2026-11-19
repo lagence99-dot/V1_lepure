@@ -1,0 +1,502 @@
+<title>L'Épure Magazine</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;1,6..96,400;1,6..96,500&family=Jost:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&display=swap">
+<style>
+/* Layout : colonne éditoriale 1240px, grille 12 col. implicite, contenu + rail pub 300px, bandes pleine largeur pour les MEA. */
+:root{
+  --paper:#ffffff; --paper-2:#f5f3f4; --ink:#0d0c0e; --ink-2:#55505a; --ink-3:#8d8792;
+  --rule:#e4e0e5; --accent:#a3122e; --band:#121014; --band-ink:#f6f2f3; --band-2:#b9b1bb;
+  --ad-bg:#f1eef1; --ad-line:#cfc8d1;
+  --f-display:"Bodoni Moda","Didot","Bodoni 72","Times New Roman",serif;
+  --f-ui:"Jost","Futura","Century Gothic","Helvetica Neue",Arial,sans-serif;
+  --f-text:"Newsreader","Iowan Old Style",Georgia,serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --paper:#0f0e11; --paper-2:#19171c; --ink:#f4f0f2; --ink-2:#b6afba; --ink-3:#857e8a;
+  --rule:#2c2831; --accent:#e8566f; --band:#1d1a21; --band-ink:#f6f2f3; --band-2:#aaa2ad;
+  --ad-bg:#17151a; --ad-line:#3a3540; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --paper:#0f0e11; --paper-2:#19171c; --ink:#f4f0f2; --ink-2:#b6afba; --ink-3:#857e8a;
+  --rule:#2c2831; --accent:#e8566f; --band:#1d1a21; --band-ink:#f6f2f3; --band-2:#aaa2ad;
+  --ad-bg:#17151a; --ad-line:#3a3540; color-scheme:dark }
+
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-ui);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--paper)}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+h1,h2,h3,h4,p,ul,ol,figure,blockquote{margin:0;padding:0}
+ul,ol{list-style:none}
+.wrap{width:min(100%,1272px);margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.page{background:var(--paper)}
+
+/* ——— Étiquettes ——— */
+.kick{font-size:.6875rem;letter-spacing:.18em;text-transform:uppercase;font-weight:500;color:var(--accent)}
+.meta{font-size:.75rem;letter-spacing:.06em;color:var(--ink-3);text-transform:uppercase}
+
+/* ——— Barre utilitaire + têtière ——— */
+.util{border-bottom:1px solid var(--rule);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase}
+.util .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-block:9px}
+.util-r{display:flex;gap:22px;align-items:center}
+.util a:hover{color:var(--accent)}
+.btn-sub{background:var(--ink);color:var(--paper);padding:6px 14px;letter-spacing:.14em}
+.util .btn-sub:hover{background:var(--accent);color:#fff}
+.mast{text-align:center;padding-block:30px 22px}
+.mast a{display:inline-block;font-family:var(--f-display);font-weight:400;font-size:clamp(2.6rem,8.4vw,6.25rem);line-height:.9;letter-spacing:.14em;margin-right:-.14em}
+.mast small{display:block;margin-top:14px;font-size:.6875rem;letter-spacing:.34em;text-transform:uppercase;color:var(--ink-3)}
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--paper);border-block:1px solid var(--ink)}
+.nav-in{display:flex;justify-content:center;gap:clamp(18px,2.6vw,38px);overflow-x:auto;scrollbar-width:none;padding-block:13px}
+.nav-in::-webkit-scrollbar{display:none}
+.nav a{font-size:.8125rem;letter-spacing:.2em;text-transform:uppercase;font-weight:500;white-space:nowrap;padding-bottom:2px;border-bottom:1px solid transparent}
+.nav a:hover,.nav a[aria-current="page"]{border-bottom-color:var(--ink)}
+@media (max-width:820px){.nav-in{justify-content:flex-start}.util-date,.util .hide-s{display:none}.util .wrap{justify-content:flex-end}}
+
+/* ——— Visuels (plaques photo de substitution) ——— */
+.ph{position:relative;overflow:hidden;display:block;width:100%;max-width:100%;background:
+  radial-gradient(ellipse 60% 75% at var(--x,32%) 28%,var(--c1),transparent 70%),
+  radial-gradient(ellipse 55% 70% at 78% 85%,var(--c3),transparent 72%),
+  linear-gradient(160deg,var(--c2),var(--c3))}
+.ph::before{content:"";position:absolute;left:var(--fx,40%);top:14%;width:24%;height:110%;border-radius:50% 50% 8% 8%/22% 22% 4% 4%;background:linear-gradient(var(--c1),transparent 85%);filter:blur(14px);opacity:.55}
+.ph::after{content:"";position:absolute;inset:0;opacity:.22;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
+.r45{aspect-ratio:4/5}.r34{aspect-ratio:3/4}.r32{aspect-ratio:3/2}.r11{aspect-ratio:1}.r169{aspect-ratio:16/9}.r23{aspect-ratio:2/3}
+.card .ph,.hero-img .ph{transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.zoom{overflow:hidden;display:block}
+a:hover .zoom .ph{transform:scale(1.035)}
+@media (prefers-reduced-motion:reduce){.card .ph,.hero-img .ph{transition:none}a:hover .zoom .ph{transform:none}}
+
+/* ——— Emplacements publicitaires ——— */
+.ad{display:flex;flex-direction:column;align-items:center;gap:7px}
+.ad-tag{font-size:.625rem;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-3)}
+.ad-box{width:min(100%,calc(var(--w)*1px));aspect-ratio:var(--w)/var(--h);max-width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;text-align:center;
+  border:1px dashed var(--ad-line);color:var(--ink-2);
+  background:repeating-linear-gradient(135deg,transparent 0 11px,var(--ad-line) 11px 12px),var(--ad-bg);background-blend-mode:normal}
+.ad-box b{font-family:var(--f-display);font-weight:500;font-size:1.05rem;letter-spacing:.04em;background:var(--ad-bg);padding:0 10px}
+.ad-box i{font-style:normal;font-size:.6875rem;letter-spacing:.14em;font-variant-numeric:tabular-nums;background:var(--ad-bg);padding:0 8px}
+.ad-box u{text-decoration:none;font-size:.625rem;letter-spacing:.08em;color:var(--ink-3);background:var(--ad-bg);padding:0 8px;font-family:ui-monospace,Menlo,monospace}
+.ad-band{background:var(--paper-2);padding-block:22px}
+.only-m{display:none}
+@media (max-width:1010px){.only-d{display:none}.only-m{display:flex}}
+body[data-top="off"] #slot-top,
+body[data-top="billboard"] #slot-top .f-lb, body[data-top="leaderboard"] #slot-top .f-bb,
+body.no-side .side .ad, body.no-mid .slot-mid, body.no-inread .slot-inread, body.no-mea .mea-partner, body.no-mea .native-card,
+body.no-sticky .m-sticky{display:none}
+
+/* ——— Titres de section ——— */
+.sec{padding-block:56px 0}
+.sec-h{display:flex;align-items:baseline;justify-content:space-between;gap:16px;border-top:1px solid var(--ink);padding-top:14px;margin-bottom:28px}
+.sec-h h2{font-family:var(--f-display);font-weight:400;font-size:clamp(1.9rem,3.4vw,2.75rem);line-height:1;letter-spacing:.01em}
+.sec-h h2 em{font-style:italic}
+.more{font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;font-weight:500;border-bottom:1px solid var(--ink);padding-bottom:2px;white-space:nowrap}
+.more:hover{color:var(--accent);border-color:var(--accent)}
+
+/* ——— À la une ——— */
+.hero{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,4.4fr) minmax(0,3fr);gap:clamp(24px,3.4vw,52px);padding-block:44px 8px;align-items:start}
+.hero-txt{align-self:center;min-width:0}
+.hero-txt h1{font-family:var(--f-display);font-weight:400;font-size:clamp(2.3rem,4.5vw,4.3rem);line-height:1.02;letter-spacing:-.005em;margin:18px 0 22px;text-wrap:balance}
+.hero-txt h1 em{font-style:italic}
+.hero-txt .chapo{font-family:var(--f-text);font-size:1.1875rem;line-height:1.5;color:var(--ink-2);max-width:34em;margin-bottom:22px}
+.hero-txt a:hover h1{color:var(--accent)}
+.now{min-width:0;border-left:1px solid var(--rule);padding-left:clamp(18px,2vw,30px)}
+.now h2{font-size:.6875rem;letter-spacing:.24em;text-transform:uppercase;font-weight:600;margin-bottom:6px}
+.now li{padding-block:17px;border-bottom:1px solid var(--rule)}
+.now li:last-child{border-bottom:0}
+.now time{font-size:.6875rem;letter-spacing:.1em;color:var(--accent);font-variant-numeric:tabular-nums;font-weight:500}
+.now h3{font-family:var(--f-display);font-weight:400;font-size:1.1875rem;line-height:1.22;margin-top:5px;text-wrap:balance}
+.now a:hover h3,.card:hover h3,.lead:hover h3,.top a:hover h4{color:var(--accent)}
+@media (max-width:1010px){.hero{grid-template-columns:1fr 1fr}.now{grid-column:1/-1;border-left:0;padding-left:0;border-top:1px solid var(--ink);padding-top:16px}.now ul{display:grid;grid-template-columns:1fr 1fr;column-gap:32px}}
+@media (max-width:680px){.hero{grid-template-columns:1fr;padding-top:24px}.hero-img{order:-1}.now ul{grid-template-columns:1fr}}
+
+/* ——— Contenu + rail ——— */
+.with-side{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:clamp(28px,4vw,56px);align-items:start}
+.side{display:flex;flex-direction:column;gap:40px;height:100%}
+.side .sticky{position:sticky;top:calc(env(safe-area-inset-top,0px) + 70px)}
+@media (max-width:1010px){.with-side{grid-template-columns:1fr}.side{height:auto}.side .sticky{position:static}}
+.top h3{font-size:.6875rem;letter-spacing:.24em;text-transform:uppercase;font-weight:600;border-top:1px solid var(--ink);padding-top:12px;margin-bottom:4px}
+.top li{display:grid;grid-template-columns:38px 1fr;gap:6px;padding-block:15px;border-bottom:1px solid var(--rule);align-items:start}
+.top li>span{font-family:var(--f-display);font-style:italic;font-size:1.875rem;line-height:1;color:var(--ink-3);font-variant-numeric:lining-nums}
+.top h4{font-family:var(--f-display);font-weight:400;font-size:1.0625rem;line-height:1.25}
+.top .kick{display:block;margin-bottom:4px}
+
+/* ——— Cartes ——— */
+.grid{display:grid;gap:40px clamp(18px,2.2vw,30px)}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:820px){.g3,.g4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:460px){.g3{grid-template-columns:1fr}}
+.card{display:flex;flex-direction:column;gap:14px;min-width:0}
+.card h3{font-family:var(--f-display);font-weight:400;font-size:1.3125rem;line-height:1.2;margin:7px 0 9px;text-wrap:balance}
+.lead{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:clamp(20px,3vw,40px);align-items:center;margin-bottom:44px;padding-bottom:44px;border-bottom:1px solid var(--rule)}
+.lead h3{font-family:var(--f-display);font-weight:400;font-size:clamp(1.7rem,2.8vw,2.5rem);line-height:1.08;margin:12px 0 14px;text-wrap:balance}
+.lead p.dek{font-family:var(--f-text);font-size:1.0625rem;color:var(--ink-2);margin-bottom:16px}
+@media (max-width:680px){.lead{grid-template-columns:1fr}}
+
+/* ——— MEA partenaire ——— */
+.mea-partner{background:var(--band);color:var(--band-ink);margin-top:64px}
+.mea-partner .wrap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(24px,5vw,72px);align-items:center;padding-block:clamp(32px,5vw,60px)}
+.mea-lbl{display:inline-flex;gap:10px;align-items:center;font-size:.6875rem;letter-spacing:.22em;text-transform:uppercase;color:var(--band-2)}
+.mea-lbl::before{content:"";width:28px;height:1px;background:currentColor}
+.mea-partner h2{font-family:var(--f-display);font-weight:400;font-size:clamp(2rem,3.8vw,3.4rem);line-height:1.04;margin:18px 0;text-wrap:balance}
+.mea-partner h2 em{font-style:italic}
+.mea-partner p{font-family:var(--f-text);font-size:1.125rem;color:var(--band-2);max-width:30em;margin-bottom:26px}
+.cta{display:inline-block;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;font-weight:500;padding:14px 26px;border:1px solid currentColor;transition:background .25s,color .25s}
+.mea-partner .cta:hover{background:var(--band-ink);color:var(--band)}
+@media (max-width:760px){.mea-partner .wrap{grid-template-columns:1fr}}
+
+/* ——— Défilés ——— */
+.runway{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(12px,1.6vw,22px)}
+.look{position:relative;display:block;min-width:0}
+.look-t{position:absolute;inset:auto 0 0;padding:60px 18px 18px;color:#fff;background:linear-gradient(transparent,rgba(8,6,10,.78));z-index:1}
+.look-t span{font-size:.6875rem;letter-spacing:.2em;text-transform:uppercase}
+.look-t h3{font-family:var(--f-display);font-weight:400;font-size:1.375rem;line-height:1.15;margin-top:6px}
+@media (max-width:820px){.runway{grid-auto-flow:column;grid-auto-columns:62%;grid-template-columns:none;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px}.look{scroll-snap-align:start}}
+
+/* ——— MEA sélection shopping ——— */
+.shop{background:var(--paper-2);margin-top:64px;padding-block:52px}
+.shop .sec-h{border-top:0;padding-top:0}
+.prod{display:flex;flex-direction:column;gap:12px;min-width:0}
+.prod b{font-weight:500;font-size:.75rem;letter-spacing:.16em;text-transform:uppercase}
+.prod span{font-family:var(--f-text);color:var(--ink-2);font-size:1rem;line-height:1.3}
+.prod i{font-style:normal;font-size:.875rem;font-variant-numeric:tabular-nums}
+.shop-note{margin-top:26px;font-size:.75rem;color:var(--ink-3)}
+
+/* ——— Newsletter ——— */
+.nl{border-block:1px solid var(--ink);margin-top:64px}
+.nl .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;align-items:center;padding-block:44px}
+.nl h2{font-family:var(--f-display);font-weight:400;font-size:clamp(1.8rem,3vw,2.6rem);line-height:1.05}
+.nl h2 em{font-style:italic}
+.nl p{color:var(--ink-2);margin-top:10px;max-width:34em}
+.nl form{display:flex;gap:0;border-bottom:1px solid var(--ink)}
+.nl input{flex:1;min-width:0;font:inherit;background:none;border:0;color:var(--ink);padding:14px 0;font-size:1rem}
+.nl input:focus{outline:none}
+.nl form:focus-within{border-color:var(--accent)}
+.nl form button{font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;font-weight:500;padding:0 0 0 18px;white-space:nowrap}
+.nl-ok{margin-top:10px;font-size:.875rem;color:var(--accent)}
+@media (max-width:760px){.nl .wrap{grid-template-columns:1fr}}
+
+/* ——— Pied de page ——— */
+.foot{padding-block:54px 110px;font-size:.875rem}
+.foot-g{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:32px}
+.foot-logo{font-family:var(--f-display);font-size:2rem;letter-spacing:.14em}
+.foot p{color:var(--ink-2);margin-top:12px;max-width:26em}
+.foot h4{font-size:.6875rem;letter-spacing:.22em;text-transform:uppercase;font-weight:600;margin-bottom:14px}
+.foot li{margin-bottom:8px;color:var(--ink-2)}
+.foot li a:hover{color:var(--accent)}
+.foot-b{margin-top:40px;padding-top:18px;border-top:1px solid var(--rule);font-size:.75rem;color:var(--ink-3);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+@media (max-width:760px){.foot-g{grid-template-columns:1fr 1fr}}
+
+/* ——— Article ——— */
+.crumb{font-size:.6875rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);padding-block:26px 0}
+.crumb a:hover{color:var(--accent)}
+.art-head{text-align:center;max-width:920px;margin-inline:auto;padding-block:30px 36px}
+.art-head h1{font-family:var(--f-display);font-weight:400;font-size:clamp(2.2rem,5vw,4.25rem);line-height:1.04;margin:18px 0 22px;text-wrap:balance}
+.art-head h1 em{font-style:italic}
+.art-head .chapo{font-family:var(--f-text);font-size:clamp(1.125rem,1.6vw,1.375rem);line-height:1.5;color:var(--ink-2);max-width:36em;margin-inline:auto}
+.byline{display:flex;justify-content:center;flex-wrap:wrap;gap:6px 18px;margin-top:24px}
+.art-fig figcaption{font-size:.75rem;color:var(--ink-3);padding-top:9px;letter-spacing:.03em}
+.art-body{max-width:680px;margin-inline:auto;padding-top:40px;font-family:var(--f-text);font-size:1.1875rem;line-height:1.68}
+.art-body>p{margin-bottom:1.35em}
+.art-body>p:first-of-type::first-letter{font-family:var(--f-display);float:left;font-size:4.6em;line-height:.82;padding:.06em .1em 0 0}
+.art-body h2{font-family:var(--f-display);font-weight:400;font-size:1.875rem;line-height:1.15;margin:1.6em 0 .6em}
+.art-body blockquote{font-family:var(--f-display);font-style:italic;font-size:clamp(1.6rem,2.6vw,2.125rem);line-height:1.2;text-align:center;margin:1.5em 0;padding-block:1.1em;border-block:1px solid var(--ink);text-wrap:balance}
+.art-body blockquote cite{display:block;font-family:var(--f-ui);font-style:normal;font-size:.6875rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);margin-top:16px}
+.slot-inread{margin-block:2.2em;padding-block:20px;border-block:1px solid var(--rule)}
+.tags{display:flex;flex-wrap:wrap;gap:8px;font-family:var(--f-ui);margin-top:36px}
+.tags a{font-size:.6875rem;letter-spacing:.16em;text-transform:uppercase;border:1px solid var(--rule);padding:8px 14px}
+.tags a:hover{border-color:var(--ink)}
+.share{display:flex;gap:18px;justify-content:center;margin-top:18px;font-size:.6875rem;letter-spacing:.18em;text-transform:uppercase}
+.share button{border-bottom:1px solid var(--rule);padding-bottom:2px}
+.share button:hover{border-color:var(--ink)}
+
+/* ——— Rubrique ——— */
+.cat-head{text-align:center;padding-block:46px 30px}
+.cat-head h1{font-family:var(--f-display);font-weight:400;font-style:italic;font-size:clamp(3.2rem,9vw,7rem);line-height:.95}
+.cat-head p{font-family:var(--f-text);font-size:1.125rem;color:var(--ink-2);max-width:34em;margin:16px auto 0}
+.chips{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:26px}
+.chips button{font-size:.6875rem;letter-spacing:.18em;text-transform:uppercase;border:1px solid var(--rule);padding:9px 16px;font-weight:500}
+.chips button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.native-card .kick{color:var(--ink-3)}
+.pager{display:flex;justify-content:center;gap:6px;margin-top:52px;font-variant-numeric:tabular-nums}
+.pager a{min-width:42px;height:42px;display:grid;place-items:center;border:1px solid var(--rule);font-size:.875rem;padding-inline:12px}
+.pager a[aria-current]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+/* ——— Habillage ——— */
+.skin-side{display:none}
+@media (min-width:1440px){
+  body.skin{background:repeating-linear-gradient(135deg,transparent 0 11px,var(--ad-line) 11px 12px),var(--ad-bg)}
+  body.skin .page{width:1180px;margin-inline:auto;box-shadow:0 0 0 1px var(--rule)}
+  body.skin .skin-side{display:flex;position:fixed;top:50%;width:calc((100vw - 1180px)/2);justify-content:center;transform:translateY(-50%);z-index:1}
+  body.skin .skin-side.l{left:0} body.skin .skin-side.r{right:0}
+  .skin-side div{writing-mode:vertical-rl;background:var(--ad-bg);border:1px dashed var(--ad-line);padding:18px 8px;font-size:.6875rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-2)}
+}
+
+/* ——— Bandeau mobile collant ——— */
+.m-sticky{display:none}
+@media (max-width:680px){.m-sticky{display:flex;position:fixed;inset:auto 0 0;z-index:70;justify-content:center;background:var(--paper);border-top:1px solid var(--rule);padding:6px 16px calc(6px + env(safe-area-inset-bottom,0px))}}
+
+/* ——— Panneau régie ——— */
+.regie-btn{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:90;background:var(--ink);color:var(--paper);font-size:.6875rem;letter-spacing:.2em;text-transform:uppercase;font-weight:500;padding:13px 18px;box-shadow:0 6px 24px rgba(0,0,0,.25)}
+@media (max-width:680px){body:not(.no-sticky) .regie-btn{bottom:calc(78px + env(safe-area-inset-bottom,0px))}}
+.regie{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(70px + env(safe-area-inset-bottom,0px));z-index:90;width:min(340px,calc(100vw - 32px));max-height:calc(100vh - 110px);overflow:auto;background:var(--paper);border:1px solid var(--ink);padding:20px;box-shadow:0 18px 50px rgba(0,0,0,.28)}
+@media (max-width:680px){body:not(.no-sticky) .regie{bottom:calc(130px + env(safe-area-inset-bottom,0px))}}
+.regie h2{font-family:var(--f-display);font-weight:400;font-size:1.375rem;line-height:1.1}
+.regie>p{font-size:.8125rem;color:var(--ink-2);margin:6px 0 14px}
+.regie fieldset{border:0;padding:0;margin:0 0 6px}
+.regie legend,.sw span b{font-size:.8125rem;font-weight:500}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);margin:8px 0 10px;border:1px solid var(--ink)}
+.seg button{font-size:.6875rem;letter-spacing:.06em;padding:9px 4px;line-height:1.25}
+.seg button+button{border-left:1px solid var(--ink)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.sw{display:flex;justify-content:space-between;align-items:center;gap:14px;padding-block:10px;border-top:1px solid var(--rule);cursor:pointer}
+.sw span{display:flex;flex-direction:column;min-width:0}
+.sw span small{font-size:.6875rem;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.sw input{appearance:none;flex:none;width:38px;height:22px;border-radius:22px;background:var(--ad-line);position:relative;cursor:pointer;transition:background .2s;margin:0}
+.sw input::after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:var(--paper);transition:transform .2s}
+.sw input:checked{background:var(--ink)}
+.sw input:checked::after{transform:translateX(16px)}
+</style>
+
+<div class="skin-side l" aria-hidden="true"><div>Habillage · zone cliquable gauche</div></div>
+<div class="skin-side r" aria-hidden="true"><div>Habillage · zone cliquable droite</div></div>
+
+<div class="page">
+<header>
+  <div class="util"><div class="wrap">
+    <span class="util-date">Jeudi 12 novembre 2026 · Paris</span>
+    <div class="util-r"><a href="#rubrique" class="hide-s">Recherche</a><a href="#accueil" class="hide-s">Newsletter</a><a href="#accueil" class="hide-s">Connexion</a><a href="#accueil" class="btn-sub">S'abonner</a></div>
+  </div></div>
+  <div class="mast wrap"><a href="#accueil" aria-label="L'Épure, accueil">L'ÉPURE</a><small>Mode · Luxe · Art de vivre</small></div>
+</header>
+<nav class="nav" aria-label="Rubriques"><div class="wrap nav-in" id="nav"></div></nav>
+
+<div class="ad-band" id="slot-top"><div class="wrap">
+  <div class="ad only-d f-bb"><span class="ad-tag">Publicité</span><div class="ad-box" style="--w:970;--h:250"><b>Billboard</b><i>970 × 250</i><u>header-top</u></div></div>
+  <div class="ad only-d f-lb"><span class="ad-tag">Publicité</span><div class="ad-box" style="--w:728;--h:90"><b>Leaderboard</b><i>728 × 90</i><u>header-top</u></div></div>
+  <div class="ad only-m"><span class="ad-tag">Publicité</span><div class="ad-box" style="--w:320;--h:100"><b>Bannière mobile</b><i>320 × 100</i><u>header-top</u></div></div>
+</div></div>
+
+<!-- ═════════ ACCUEIL ═════════ -->
+<main id="v-accueil">
+  <section class="wrap hero" id="hero"></section>
+
+  <section class="wrap sec">
+    <div class="sec-h"><h2>La <em>mode</em></h2><a class="more" href="#rubrique">Toute la rubrique</a></div>
+    <div class="with-side">
+      <div>
+        <div id="mode-lead"></div>
+        <div class="grid g3" id="mode-grid"></div>
+      </div>
+      <aside class="side" data-side></aside>
+    </div>
+  </section>
+
+  <section class="mea-partner" aria-label="Contenu partenaire"><div class="wrap">
+    <a href="#article" class="zoom"><span class="ph r32" style="--c1:#e8d9c4;--c2:#8c6a45;--c3:#1d140c;--fx:58%"></span></a>
+    <div>
+      <span class="mea-lbl">Mise en avant · Contenu partenaire</span>
+      <h2>Dans l'atelier où naît <em>le sac d'une vie</em></h2>
+      <p>Dix-huit heures de travail, quarante-trois pièces de cuir, une seule artisane. Visite d'une manufacture du Jura qui forme ses selliers pendant cinq ans.</p>
+      <a class="cta" href="#article">Découvrir l'atelier</a>
+    </div>
+  </div></section>
+
+  <section class="wrap sec">
+    <div class="sec-h"><h2>Les <em>défilés</em></h2><a class="more" href="#rubrique">Tous les défilés</a></div>
+    <div class="runway" id="runway"></div>
+  </section>
+
+  <div class="wrap slot-mid" style="padding-block:56px 0">
+    <div class="ad only-d"><span class="ad-tag">Publicité</span><div class="ad-box" style="--w:970;--h:250"><b>Billboard milieu de page</b><i>970 × 250</i><u>home-mid</u></div></div>
+    <div class="ad only-m"><span class="ad-tag">Publicité</span><div class="ad-box" style="--w:300;--h:250"><b>Pavé</b><i>300 × 250</i><u>home-mid</u></div></div>
+  </div>
+
+  <section class="wrap sec">
+    <div class="sec-h"><h2>Beauté &amp; <em>joaillerie</em></h2><a class="more" href="#rubrique">Voir plus</a></div>
+    <div class="grid g4" id="beaute-grid"></div>
+  </section>
+
+  <section class="shop" aria-label="Sélection shopping"><div class="wrap">
+    <div class="sec-h"><h2>La sélection <em>de la rédaction</em></h2><span class="meta">Mise en avant shopping</span></div>
+    <div class="grid g4" id="shop-grid"></div>
+    <p class="shop-note">Emplacement MEA produits : liens affiliés ou sélection sponsorisée, 4 à 8 vignettes.</p>
+  </div></section>
+</main>
+
+<!-- ═════════ RUBRIQUE ═════════ -->
+<main id="v-rubrique" hidden>
+  <div class="wrap">
+    <div class="cat-head">
+      <span class="kick">Rubrique</span>
+      <h1>Mode</h1>
+      <p>Tendances, silhouettes, portraits de créateurs et coulisses des maisons : toute l'actualité de la mode, chaque jour.</p>
+      <div class="chips" id="chips"></div>
+    </div>
+    <div class="with-side">
+      <div>
+        <div id="cat-lead"></div>
+        <div class="grid g3" id="cat-grid"></div>
+        <nav class="pager" aria-label="Pagination"><a href="#rubrique" aria-current="page">1</a><a href="#rubrique">2</a><a href="#rubrique">3</a><a href="#rubrique">Suivant</a></nav>
+      </div>
+      <aside class="side" data-side></aside>
+    </div>
+  </div>
+</main>
+
+<!-- ═════════ ARTICLE ═════════ -->
+<main id="v-article" hidden>
+  <article class="wrap">
+    <p class="crumb"><a href="#accueil">Accueil</a> / <a href="#rubrique">Mode</a> / Tendances</p>
+    <header class="art-head">
+      <span class="kick">Tendances · Automne-hiver 2026</span>
+      <h1>Le manteau long reprend <em>le pouvoir</em></h1>
+      <p class="chapo">Aux chevilles, épaulé, presque sévère : sur les podiums comme dans la rue, le grand manteau s'impose comme la pièce maîtresse de la saison. Enquête sur un retour qui doit autant à la crise qu'au désir de durer.</p>
+      <div class="byline"><span class="meta">Par Hortense Vallier</span><span class="meta">Photographies Idris Camara</span><span class="meta">12 novembre 2026 · 6 min de lecture</span></div>
+      <div class="share"><button type="button" id="copy-link">Copier le lien</button><button type="button">Enregistrer</button></div>
+    </header>
+    <figure class="art-fig"><span class="ph r169" style="--c1:#ded3c6;--c2:#77685c;--c3:#1c1815;--fx:44%"></span><figcaption>Silhouette de la collection automne-hiver 2026, photographiée quai de Conti, à Paris. © Idris Camara pour L'Épure</figcaption></figure>
+    <div class="with-side" style="margin-top:8px">
+      <div>
+        <div class="art-body">
+          <p>Il y a des vêtements qui racontent une époque mieux que les éditoriaux. Cet hiver, c'est un manteau. Long, très long, il frôle le sol, gomme la taille et allonge le pas. On l'a compté dans plus d'une collection sur deux à Paris, à Milan il ouvrait les défilés, et les acheteurs des grands magasins en ont fait leur première commande de la saison.</p>
+          <p>Le phénomène n'a rien d'un caprice. Depuis trois saisons, les ventes de pièces dites « d'investissement » progressent quand le reste du vestiaire marque le pas. Un manteau de laine double face, coupé dans un drap de 620 grammes, se garde dix ans. Les clientes le savent, et elles font le calcul.</p>
+          <div class="slot-inread">
+            <div class="ad"><span class="ad-tag">Publicité</span><div class="ad-box" style="--w:300;--h:250"><b>Pavé in-article</b><i>300 × 250 · ou in-read vidéo</i><u>article-inread</u></div></div>
+          </div>
+          <h2>Une épaule, une ligne</h2>
+          <p>Dans les ateliers, tout commence par l'épaule. « C'est elle qui porte le vêtement, pas le corps », explique une première d'atelier installée rue de la Paix depuis vingt-deux ans. Elle montre la toile, encore épinglée, et les quatre couches d'entoilage qui donnent au tombé cette rigueur sans raideur.</p>
+          <blockquote>« Un bon manteau ne se remarque pas. Il se reconnaît, de dos, à trente mètres. »<cite>Une première d'atelier, Paris</cite></blockquote>
+          <p>La palette suit la même discipline : anthracite, tabac, un bleu marine presque noir, et ce gris perle que les tisseurs écossais appellent « ciel de novembre ». Les couleurs vives existent, mais en doublure, pour soi. Le luxe, cette saison, se porte à l'intérieur.</p>
+          <p>Reste la question du prix. Entre 2 400 et 7 800 euros pour les maisons les plus établies, le grand manteau n'est pas un achat d'impulsion. Le marché de la seconde main l'a bien compris : les modèles des années 1990 s'y arrachent, souvent retaillés par des ateliers de retouche qui affichent trois semaines d'attente.</p>
+          <div class="tags"><a href="#rubrique">Manteaux</a><a href="#rubrique">Automne-hiver 2026</a><a href="#rubrique">Savoir-faire</a><a href="#rubrique">Paris</a></div>
+        </div>
+      </div>
+      <aside class="side" data-side></aside>
+    </div>
+  </article>
+  <section class="wrap sec">
+    <div class="sec-h"><h2>À lire <em>aussi</em></h2></div>
+    <div class="grid g4" id="related"></div>
+  </section>
+</main>
+
+<section class="nl" aria-label="Newsletter"><div class="wrap">
+  <div><span class="kick">La lettre de L'Épure</span><h2>L'essentiel de la mode, <em>chaque vendredi</em></h2><p>Les défilés à retenir, les pièces à suivre et une adresse à garder pour soi. Gratuit, sans publicité.</p></div>
+  <div><form id="nl-form"><input type="email" id="nl-email" placeholder="Votre adresse e-mail" aria-label="Adresse e-mail" required><button type="submit">S'inscrire</button></form><p class="nl-ok" id="nl-ok" hidden>Inscription simulée : le formulaire sera relié à votre outil d'e-mailing dans le thème.</p></div>
+</div></section>
+
+<footer class="foot wrap">
+  <div class="foot-g">
+    <div><div class="foot-logo">L'ÉPURE</div><p>Magazine indépendant de mode et de luxe. Maquette de démonstration : titres, signatures et contenus sont fictifs.</p></div>
+    <div><h4>Rubriques</h4><ul><li><a href="#rubrique">Mode</a></li><li><a href="#rubrique">Défilés</a></li><li><a href="#rubrique">Beauté</a></li><li><a href="#rubrique">Joaillerie</a></li></ul></div>
+    <div><h4>Le magazine</h4><ul><li><a href="#accueil">La rédaction</a></li><li><a href="#accueil">S'abonner</a></li><li><a href="#accueil">Newsletter</a></li><li><a href="#accueil">Contact</a></li></ul></div>
+    <div><h4>Annonceurs</h4><ul><li><a href="#accueil">Kit média</a></li><li><a href="#accueil">Formats publicitaires</a></li><li><a href="#accueil">Contenus partenaires</a></li></ul></div>
+  </div>
+  <div class="foot-b"><span>© 2026 L'Épure. Tous droits réservés.</span><span>Mentions légales · Confidentialité · Gestion des cookies</span></div>
+</footer>
+</div>
+
+<div class="m-sticky"><div class="ad"><div class="ad-box" style="--w:320;--h:50"><i>Bannière collante · 320 × 50</i></div></div></div>
+
+<button type="button" class="regie-btn" id="regie-btn" aria-expanded="false" aria-controls="regie">Emplacements pub</button>
+<div class="regie" id="regie" hidden>
+  <h2>Emplacements publicitaires</h2>
+  <p>Activez ou coupez chaque emplacement pour voir la page avec et sans. Ces réglages deviendront des options du thème WordPress.</p>
+  <fieldset><legend>Bannière haute</legend>
+    <div class="seg" id="seg-top"><button type="button" data-v="billboard">Billboard<br>970 × 250</button><button type="button" data-v="leaderboard">Leaderboard<br>728 × 90</button><button type="button" data-v="off">Aucune</button></div>
+  </fieldset>
+  <label class="sw"><span><b>Colonne de droite</b><small>Pavé 300 × 250 + Grand angle 300 × 600</small></span><input type="checkbox" id="o-side"></label>
+  <label class="sw"><span><b>Milieu de page</b><small>Billboard 970 × 250</small></span><input type="checkbox" id="o-mid"></label>
+  <label class="sw"><span><b>Dans l'article</b><small>Pavé 300 × 250 ou in-read</small></span><input type="checkbox" id="o-inread"></label>
+  <label class="sw"><span><b>MEA partenaire et native</b><small>Bandeau sponsorisé + carte dans les listes</small></span><input type="checkbox" id="o-mea"></label>
+  <label class="sw"><span><b>Bannière collante mobile</b><small>320 × 50, bas d'écran</small></span><input type="checkbox" id="o-sticky"></label>
+  <label class="sw"><span><b>Habillage</b><small>Visible sur écran large (1440 px et plus)</small></span><input type="checkbox" id="o-skin"></label>
+</div>
+
+<script>
+(function(){
+var $=function(s){return document.querySelector(s)}, $$=function(s){return Array.prototype.slice.call(document.querySelectorAll(s))};
+var P=[['#e3d8cb','#8d7361','#241d19'],['#cdd6da','#70858f','#1c262b'],['#ead6d2','#b0646c','#3b1821'],['#dcd9c3','#8d8a57','#27271a'],
+['#eee5d8','#c3a67b','#463620'],['#d3cce0','#766a92','#211c2f'],['#dfe7df','#7f9b87','#1a2820'],['#b9b2b6','#3b363c','#0c0b0d'],
+['#f3e6df','#d5a79c','#74463d'],['#c6cedb','#3f5c82','#0f1929'],['#e9d7b9','#b9813c','#3a2410'],['#e6dfe2','#a59aa2','#3a3338']];
+function ph(i,r,fx){var p=P[i%P.length];return '<span class="ph '+r+'" style="--c1:'+p[0]+';--c2:'+p[1]+';--c3:'+p[2]+';--fx:'+(fx||[40,30,52,36,46][i%5])+'%;--x:'+[32,60,28,50][i%4]+'%"></span>'}
+
+var NAV=['Mode','Défilés','Beauté','Joaillerie','Horlogerie','Art de vivre','Culture','Vidéo'];
+$('#nav').innerHTML=NAV.map(function(n){return '<a href="#rubrique">'+n+'</a>'}).join('');
+
+var MODE=[
+{c:'Street style',t:'Paris, sept heures du matin : ce que portent celles qui ouvrent les ateliers',a:'Jeanne Aubrac',d:'12 nov.'},
+{c:'Portrait',t:'À 29 ans, elle redessine la maille depuis un ancien moulin des Cévennes',a:'Hortense Vallier',d:'11 nov.'},
+{c:'Tendances',t:'Le chocolat détrône le noir : huit façons de le porter cet hiver',a:'Capucine Roy',d:'11 nov.'},
+{c:'Savoir-faire',t:'La dentelle de Calais retrouve ses métiers centenaires',a:'Marc Delaunay',d:'10 nov.'},
+{c:'Vestiaire',t:'Le mocassin épais, ou comment une chaussure d\'écolier a conquis les bureaux',a:'Inès Morel',d:'10 nov.'},
+{c:'Décryptage',t:'Seconde main de luxe : les prix flambent, les contrefaçons aussi',a:'Paul Estève',d:'9 nov.'}];
+function card(a,i,r){return '<a class="card" href="#article"><span class="zoom">'+ph(i,r||'r45')+'</span><div><span class="kick">'+a.c+'</span><h3>'+a.t+'</h3><p class="meta">Par '+a.a+' · '+a.d+'</p></div></a>'}
+function lead(i){return '<a class="lead" href="#article"><span class="zoom">'+ph(i,'r32',62)+'</span><div><span class="kick">Enquête</span><h3>Pourquoi les grandes maisons rouvrent toutes leurs archives</h3><p class="dek">Rééditions, expositions, sacs « héritage » : le passé est devenu le premier argument de vente du luxe. Trois directeurs de patrimoine racontent.</p><p class="meta">Par Marc Delaunay · 12 nov. · 9 min</p></div></a>'}
+
+$('#hero').innerHTML=
+ '<div class="hero-txt"><a href="#article"><span class="kick">À la une · Tendances</span><h1>Le manteau long reprend <em>le pouvoir</em></h1></a><p class="chapo">Aux chevilles, épaulé, presque sévère : le grand manteau s\'impose comme la pièce maîtresse de la saison. Enquête sur un retour qui doit autant à la crise qu\'au désir de durer.</p><p class="meta">Par Hortense Vallier · 6 min de lecture</p></div>'+
+ '<a class="hero-img zoom" href="#article">'+ph(0,'r45',44)+'</a>'+
+ '<div class="now"><h2>En ce moment</h2><ul>'+[
+ ['09 h 42','Fashion Week de Paris : le calendrier de mars compte 71 défilés, un record'],
+ ['08 h 15','Une robe de bal de 1957 adjugée 412 000 euros à Drouot'],
+ ['Hier','Les exportations françaises de maroquinerie progressent de 6 % sur un an'],
+ ['Hier','Le Palais Galliera consacrera son exposition de printemps au tailleur']].map(function(n){return '<li><a href="#article"><time>'+n[0]+'</time><h3>'+n[1]+'</h3></a></li>'}).join('')+'</ul></div>';
+
+$('#mode-lead').innerHTML=lead(7);
+$('#mode-grid').innerHTML=MODE.map(function(a,i){return card(a,i+1)}).join('');
+
+var RUN=[['Paris · Prêt-à-porter','Le tailleur, version fluide'],['Milan · Prêt-à-porter','Cuir souple et épaules nues'],['Paris · Haute couture','Trente-deux robes, une seule couleur'],['Londres · Jeunes créateurs','La relève mise sur le tartan']];
+$('#runway').innerHTML=RUN.map(function(r,i){return '<a class="look zoom" href="#article">'+ph([9,2,11,6][i],'r23')+'<div class="look-t"><span>'+r[0]+'</span><h3>'+r[1]+'</h3></div></a>'}).join('');
+
+var BJ=[{c:'Beauté',t:'Le rouge mat revient, plus sombre et plus net',a:'Lou Ferrand',d:'12 nov.'},
+{c:'Parfum',t:'Iris, cuir, fumée : les sillages de l\'hiver',a:'Lou Ferrand',d:'11 nov.'},
+{c:'Haute joaillerie',t:'Place Vendôme, l\'émeraude reprend la première place',a:'Aurèle Castel',d:'10 nov.'},
+{c:'Horlogerie',t:'36 millimètres : la petite montre séduit de nouveau les hommes',a:'Aurèle Castel',d:'9 nov.'}];
+$('#beaute-grid').innerHTML=BJ.map(function(a,i){return card(a,[8,5,6,10][i],'r11')}).join('');
+$('#related').innerHTML=MODE.slice(0,4).map(function(a,i){return card(a,i+3)}).join('');
+
+var SH=[['Le cabas','Cuir grainé, doublure daim','1 850 €'],['Le foulard','Twill de soie, 90 cm','420 €'],['La bottine','Veau glacé, talon 4 cm','980 €'],['Le pull','Cachemire quatre fils','690 €']];
+$('#shop-grid').innerHTML=SH.map(function(s,i){return '<a class="prod" href="#article"><span class="zoom">'+ph([4,2,7,11][i],'r11',38)+'</span><b>'+s[0]+'</b><span>'+s[1]+'</span><i>'+s[2]+'</i></a>'}).join('');
+
+/* Rubrique */
+var CH=['Tout','Tendances','Street style','Portraits','Savoir-faire','Vestiaire'];
+$('#chips').innerHTML=CH.map(function(c,i){return '<button type="button" aria-pressed="'+(i===0)+'">'+c+'</button>'}).join('');
+$('#chips').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;$$('#chips button').forEach(function(x){x.setAttribute('aria-pressed',x===b)})});
+$('#cat-lead').innerHTML=lead(3);
+var cat=MODE.concat(MODE.slice(0,3)).map(function(a,i){return card(a,i+5)});
+cat.splice(4,0,'<a class="card native-card" href="#article"><span class="zoom">'+ph(10,'r45')+'</span><div><span class="kick">Sponsorisé · Maison partenaire</span><h3>Trois générations de selliers, un même point de couture</h3><p class="meta">Carte native · native-grid</p></div></a>');
+$('#cat-grid').innerHTML=cat.join('');
+
+/* Rail droit (identique sur les trois gabarits) */
+var TOP=[['Tendances','Le chocolat détrône le noir'],['Enquête','Pourquoi les maisons rouvrent leurs archives'],['Horlogerie','La petite montre séduit de nouveau'],['Street style','Paris, sept heures du matin'],['Beauté','Le rouge mat revient']];
+var side='<div class="ad"><span class="ad-tag">Publicité</span><div class="ad-box" style="--w:300;--h:250"><b>Pavé</b><i>300 × 250</i><u>sidebar-top</u></div></div>'+
+ '<div class="top"><h3>Les plus lus</h3><ol>'+TOP.map(function(t,i){return '<li><span>'+(i+1)+'</span><a href="#article"><span class="kick">'+t[0]+'</span><h4>'+t[1]+'</h4></a></li>'}).join('')+'</ol></div>'+
+ '<div style="flex:1"><div class="ad sticky"><span class="ad-tag">Publicité</span><div class="ad-box" style="--w:300;--h:600"><b>Grand angle</b><i>300 × 600 · collant au défilement</i><u>sidebar-sticky</u></div></div></div>';
+$$('[data-side]').forEach(function(s){s.innerHTML=side});
+
+/* Navigation entre gabarits */
+var VIEWS=['accueil','rubrique','article'];
+function route(){var h=(location.hash||'#accueil').slice(1);if(VIEWS.indexOf(h)<0)h='accueil';
+ VIEWS.forEach(function(v){$('#v-'+v).hidden=v!==h});
+ var first=$('#nav a');$$('#nav a').forEach(function(a){a.removeAttribute('aria-current')});
+ if(h!=='accueil')first.setAttribute('aria-current','page');
+ window.scrollTo(0,0)}
+window.addEventListener('hashchange',route);route();
+
+/* Régie */
+var S={top:'billboard',side:true,mid:true,inread:true,mea:true,sticky:true,skin:false};
+try{var sv=JSON.parse(localStorage.getItem('epure-ads')||'null');if(sv)for(var k in S)if(k in sv)S[k]=sv[k]}catch(e){}
+function apply(){var b=document.body;b.dataset.top=S.top;
+ ['side','mid','inread','mea','sticky'].forEach(function(k){b.classList.toggle('no-'+k,!S[k]);$('#o-'+k).checked=S[k]});
+ b.classList.toggle('skin',S.skin);$('#o-skin').checked=S.skin;
+ $$('#seg-top button').forEach(function(x){x.setAttribute('aria-pressed',x.dataset.v===S.top)});
+ try{localStorage.setItem('epure-ads',JSON.stringify(S))}catch(e){}}
+$('#seg-top').addEventListener('click',function(e){var b=e.target.closest('button');if(b){S.top=b.dataset.v;apply()}});
+['side','mid','inread','mea','sticky','skin'].forEach(function(k){$('#o-'+k).addEventListener('change',function(e){S[k]=e.target.checked;apply()})});
+$('#regie-btn').addEventListener('click',function(){var r=$('#regie');r.hidden=!r.hidden;this.setAttribute('aria-expanded',!r.hidden);this.textContent=r.hidden?'Emplacements pub':'Fermer'});
+apply();
+
+$('#nl-form').addEventListener('submit',function(e){e.preventDefault();$('#nl-ok').hidden=false});
+$('#copy-link').addEventListener('click',function(){var b=this;function ok(){b.textContent='Lien copié'}
+ try{navigator.clipboard.writeText(location.href).then(ok,function(){b.textContent='Copie indisponible ici'})}catch(e){b.textContent='Copie indisponible ici'}});
+})();
+</script>
